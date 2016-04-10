@@ -13,12 +13,16 @@ class MessageResponder
   end
 
   def respond
-    on /^\/start/ do
+    on /^\/test/ do
       answer_with_greeting_message
     end
 
     on /^\/stop/ do
       answer_with_farewell_message
+    end
+
+    on /^\/enhan/ do
+      answer_with_message("Kena sai!")
     end
   end
 
@@ -49,6 +53,10 @@ class MessageResponder
   def answer_with_farewell_message
     text = I18n.t('farewell_message')
 
+    MessageSender.new(bot: bot, chat: message.chat, text: text).send
+  end
+
+  def answer_with_message(text)
     MessageSender.new(bot: bot, chat: message.chat, text: text).send
   end
 end
